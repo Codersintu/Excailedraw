@@ -13,6 +13,7 @@ declare global{
 export const userMiddleware=async(req:Request,res:Response,next:NextFunction)=>{
 try {
     const authHeader=req.headers.authorization;
+    console.log("authHeader",authHeader)
     if (!authHeader) {
         res.status(401).json({message:"u are not loged In"})
         return;
