@@ -2,16 +2,25 @@
 
 import HeadRoom from "@/component/headRoom";
 import RoomForm from "@/component/roomForm";
+import { BACKEND_URL } from "@repo/backend-common/config";
+import axios from "@/lib/axios";
 import { Github, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CreateRoom() {
   const [show,setShow]=useState(false);
+  useEffect(()=>{
+    async function checkRoomExist(){
+      const res=await axios.get(`${BACKEND_URL}/api/v1/room`,{
+        withCredentials:true
+      });
+    }
+  },[])
 
 
   return (
     <>
-    <div className="min-h-screen bg-white flex flex-col relative">
+    <div className="min-h-screen border-4 bg-white flex flex-col relative">
        <HeadRoom/>
        <div className="flex-1 flex justify-center items-center z-0">
         <div className="flex flex-col justify-center items-center gap-10">
@@ -25,7 +34,7 @@ export default function CreateRoom() {
               <p className="text-sm text-gray-600">editor over at excalidraw.com in the meantime.</p>
             </div>
             
-               <div onClick={()=>setShow(!show)} className="flex justify-center items-center gap-3 bg-blue-700 px-20 py-3 rounded-xl text-white font-semibold cursor-pointer">
+               <div onClick={()=>setShow(true)} className="flex justify-center items-center gap-3 bg-blue-700 px-20 py-3 rounded-xl text-white font-semibold cursor-pointer">
                 <Plus/>
                 Create workspace
                </div>
@@ -44,7 +53,7 @@ export default function CreateRoom() {
         </div>
        </div>
     </div>
-    {show && <RoomForm/>}
+    {show && <RoomForm setShow={setShow}/>}
     </>
   );
 }

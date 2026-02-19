@@ -1,8 +1,9 @@
 import { BACKEND_URL } from "@repo/backend-common/config";
-import axios from "axios";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+import axios from "@/lib/axios";
+
 
 export const authOptions = {
     providers: [
@@ -10,20 +11,19 @@ export const authOptions = {
             name: "Email",
             credentials: {
                 email: { label: "Email", type: "text", placeholder: "test@gmail.com" },
-                password: { label: "Password", type: "password" }
+                password: { label: "Password", type: "password", placeholder: "password" }
             },
             async authorize(credentials: any): Promise<any> {
                 try {
                     const res = await axios.post(`${BACKEND_URL}/api/v1/login`, {
                         email: credentials?.email,
                         password: credentials?.password
-                    })
+                    });
                     
-                    const { user ,token} = res.data;
+                    const { user} = res.data;
                     return {
                         id: user.id,
                         email: user.email,
-                        accessToken: token
                     }
                 } catch (error) {
                     console.log(error)
@@ -51,8 +51,7 @@ export const authOptions = {
                     email: user.email,
                     image: user.image,
                 });
-                user.accessToken = res.data.token;
-                user.id = res.data.user.id;   
+                 user.id = res.data.user.id;   
             }
             return true;
         },
@@ -61,9 +60,7 @@ export const authOptions = {
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
-                token.accessToken = user.accessToken;
             }
-            console.log("JWT Token:", token);
             return token;
         },
 
@@ -71,7 +68,6 @@ export const authOptions = {
             if (token) {
                 session.user.id = token.id;
                 session.user.email = token.email;
-                session.user.accessToken = token.accessToken;
             }
             return session;
         }

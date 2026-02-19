@@ -22,7 +22,7 @@ async function Header() {
           <a href="#showcase" className="text-gray-600 hover:text-gray-900 transition-colors">
             Showcase
           </a>
-          <a href="https://github.com" className="text-gray-600 hover:text-gray-900 transition-colors">
+          <a href="https://github.com/Codersintu" className="text-gray-600 hover:text-gray-900 transition-colors">
             GitHub
           </a>
         </div>

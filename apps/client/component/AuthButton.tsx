@@ -2,8 +2,23 @@
 
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import axios from "@/lib/axios"
+import { BACKEND_URL } from "@repo/backend-common/config";
 
 export default function AuthButtons({ session }: { session: any }) {
+  const handleLogOut=async()=>{
+    try {
+      await axios.post(`${BACKEND_URL}/api/v1/logout`);
+
+      await signOut({
+        redirect:true,
+        callbackUrl:"/"
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   if (session) {
     return (
       <div className="flex gap-6">
@@ -14,7 +29,7 @@ export default function AuthButtons({ session }: { session: any }) {
               </button>
             </Link>
 
-            <button onClick={() => signOut()} className="text-gray-600 cursor-pointer hover:text-gray-900 transition-colors">Log Out</button>
+            <button onClick={handleLogOut} className="text-gray-600 cursor-pointer hover:text-gray-900 transition-colors">Log Out</button>
           </div>
         </div>
     );
