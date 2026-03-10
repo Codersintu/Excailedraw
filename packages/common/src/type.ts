@@ -12,3 +12,10 @@ export const signInSchema=z.object({
 export const roomSchema=z.object({
     name:z.string().min(3,{message:"room name must be 3 letter"}).max(10,{message:"room name must be 10 letter"})
 })
+
+export type RoomProp={
+    id:number,
+    slug:string,
+    createAt:Date
+    
+}

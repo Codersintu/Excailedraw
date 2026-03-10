@@ -1,20 +1,43 @@
+"use client"
 import { BACKEND_URL } from "@repo/backend-common/config";
-import axios from "@/lib/axios";
-import { Cross, CrossIcon, Loader, Pencil } from "lucide-react";
+import { Loader, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { getSession } from "next-auth/react";
+import { Session } from "next-auth";
+
 type FormValues = {
   ReactDatepicker: string,
   Roomcreator: string
 }
+
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+  }
+}
+
 export default function RoomForm({setShow}:any) {
   const router = useRouter();
-  const { handleSubmit, control, formState: { isSubmitting } } = useForm<FormValues>()
+  const { handleSubmit, control,setError, formState: { isSubmitting,errors } } = useForm<FormValues>();
   const onSubmit = async (data: FormValues) => {
-    const res = await axios.post(`${BACKEND_URL}/api/v1/room`, {
-      name: data.Roomcreator,
-    });
+    try {
+      const session = await getSession();
+      const res = await axios.post(`${BACKEND_URL}/api/v1/room`, {
+        name: data.Roomcreator,
+      }, {
+        headers: {
+          Authorization: ` ${session?.accessToken}`
+        }
+      });
     router.push(`/canvas/${res.data.room.id}`);
+    } catch (error:any) {
+      setError("root",{
+        message:error.response?.data?.message || "room creation failed!"
+      })
+    }
+  
   };
   return (
     <div className="flex justify-center items-center absolute inset-0 z-50 bg-white/40 ">
@@ -44,8 +67,11 @@ export default function RoomForm({setShow}:any) {
               )}
             />
           </div>
-
+        
           <button disabled={isSubmitting} className="bg-blue-700 px-30 py-4 text-white font-semibold rounded-2xl cursor-pointer" type="submit">{isSubmitting ? <Loader className="animate-spin" /> : "Create room"}</button>
+              {errors.root && (
+            <p className="text-red-600 font-medium">{errors.root.message}</p>
+          )}
         </form>
       </div>
     </div>

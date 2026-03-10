@@ -13,7 +13,7 @@ async function Header() {
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Pencil className="w-8 h-8 text-blue-600" strokeWidth={2.5} />
-          <span className="text-2xl font-bold text-gray-900">Excalidraw</span>
+          <span className="text-2xl font-bold text-gray-900">MahtoDraw</span>
         </div>
         <div className="hidden md:flex items-center gap-8">
           <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">

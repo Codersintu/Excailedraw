@@ -2,8 +2,8 @@
 
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-import axios from "@/lib/axios"
 import { BACKEND_URL } from "@repo/backend-common/config";
+import axios from "axios";
 
 export default function AuthButtons({ session }: { session: any }) {
   const handleLogOut=async()=>{

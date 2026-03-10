@@ -13,10 +13,10 @@ console.log("VERIFY SECRET of middleware:", JWT_SECRET);
 
 export const userMiddleware=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-    const authHeader=req.cookies.token;
+    const authHeader=req.headers.authorization;;
     console.log("VERIFY SECRET of middleware2:", JWT_SECRET);
 
-    console.log("authHeader",authHeader)
+    console.log("authHeader1",authHeader)
     if (!authHeader) {
         res.status(401).json({message:"u are not loged In"})
         return;

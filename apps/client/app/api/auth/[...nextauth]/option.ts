@@ -2,7 +2,7 @@ import { BACKEND_URL } from "@repo/backend-common/config";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import axios from "@/lib/axios";
+import axios from "axios";
 
 
 export const authOptions = {
@@ -20,10 +20,11 @@ export const authOptions = {
                         password: credentials?.password
                     });
                     
-                    const { user} = res.data;
+                    const { user,token} = res.data;
                     return {
                         id: user.id,
                         email: user.email,
+                        accessToken: token
                     }
                 } catch (error) {
                     console.log(error)
@@ -51,7 +52,8 @@ export const authOptions = {
                     email: user.email,
                     image: user.image,
                 });
-                 user.id = res.data.user.id;   
+                 user.id = res.data.user.id;  
+                 user.accessToken=res.data.token 
             }
             return true;
         },
@@ -60,6 +62,7 @@ export const authOptions = {
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
+                token.accessToken = user.accessToken;
             }
             return token;
         },
@@ -68,6 +71,7 @@ export const authOptions = {
             if (token) {
                 session.user.id = token.id;
                 session.user.email = token.email;
+                  session.accessToken = token.accessToken;
             }
             return session;
         }

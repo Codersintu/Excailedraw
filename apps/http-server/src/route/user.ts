@@ -1,5 +1,5 @@
 import express from "express"
-import { signInSchema, userSchema, roomSchema } from "@repo/common/type"
+import { signInSchema, roomSchema, RoomProp } from "@repo/common/type"
 import { client } from "@repo/db/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
@@ -25,14 +25,8 @@ router.post("/oauth-login", async (req, res) => {
         }
 
         const token = jwt.sign({ userId: user.id }, JWT_SECRET);
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
 
-        res.json({ user });
+        res.json({ user, token });
     } catch (error) {
         return res.status(500).json({ message: "Internal server error" })
     }
@@ -114,15 +108,10 @@ router.post("/login", async (req, res) => {
                 }
                 console.log("VERIFY SECRET:", JWT_SECRET);
                 const token = jwt.sign({ userId: newUser.id }, JWT_SECRET);
-                res.cookie("token", token, {
-                    httpOnly: true,
-                    secure: false,
-                    sameSite: "lax",
-                    maxAge: 7 * 24 * 60 * 60 * 1000,
-                });
 
                 return res.status(201).json({
                     message: "Login successfully",
+                    token,
                     user: {
                         id: newUser.id,
                         email: newUser.email,
@@ -142,15 +131,10 @@ router.post("/login", async (req, res) => {
         }
         console.log("VERIFY SECRET:", JWT_SECRET);
         const token = jwt.sign({ userId: checkExistUser.id }, JWT_SECRET);
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
 
         return res.status(201).json({
             message: "Login successfully",
+            token,
             user: {
                 id: checkExistUser.id,
                 email: checkExistUser.email,
@@ -165,12 +149,12 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", (req, res) => {
     try {
-      res.clearCookie("token", {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-    });
-    res.json({ message: "Logout successfully" })
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+        });
+        res.json({ message: "Logout successfully" })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal server error" })
@@ -192,6 +176,17 @@ router.post("/room", userMiddleware, async (req, res) => {
             return;
         }
         const { name } = Parsedata.data;
+        const IsExistingSlug = await client.room.findFirst({
+            where: {
+                slug: name,
+                adminId
+            }
+        })
+        if (IsExistingSlug) {
+            return res.status(400).json({
+                message: "room already exists for this user"
+            });
+        }
         const newRoom = await client.room.create({
             data: {
                 slug: name,
@@ -215,9 +210,14 @@ router.post("/room", userMiddleware, async (req, res) => {
 router.get("/room", userMiddleware, async (req, res) => {
     try {
         const userId = Number(req.userId);
-        const rooms = await client.room.findMany({
+        const rooms: RoomProp[] = await client.room.findMany({
             where: {
                 adminId: userId
+            },
+            select: {
+                id: true,
+                slug: true,
+                createAt: true
             }
         })
         return res.status(201).json({ rooms })
