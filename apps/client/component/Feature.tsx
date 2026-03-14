@@ -50,12 +50,12 @@ const colorMap: Record<string, { bg: string; icon: string; border: string }> = {
 
 function Feature() {
   return (
-    <section id='features' className="py-20 pb-20 bg-gray-200">
+    <section id='features' className="py-20 pb-20 bg-linear-to-r from-[#2D3844] via-[#62240C] to-[#2D3844]">
      <div className="max-w-7xl mx-auto">
       <div className="flex flex-col  items-center space-y-10">
         <div className="flex flex-col gap-3">
-          <h1 className='text-4xl md:text-5xl font-bold text-gray-900'>Everything you need to sketch</h1>
-          <span className='text-gray-600 text-xl max-w-2xl mx-auto'>Powerful features wrapped in a simple, intuitive interface</span>
+          <h1 className='text-4xl md:text-5xl font-bold text-gray-200'>Everything you need to sketch</h1>
+          <span className='text-gray-400 text-xl max-w-2xl mx-auto'>Powerful features wrapped in a simple, intuitive interface</span>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((f,idx)=>{

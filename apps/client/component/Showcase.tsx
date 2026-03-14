@@ -32,7 +32,7 @@ export function Showcase() {
             Built for every use case
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            From quick sketches to detailed diagrams, Excalidraw adapts to your needs
+            From quick sketches to detailed diagrams, Pencildraw adapts to your needs
           </p>
         </div>
 

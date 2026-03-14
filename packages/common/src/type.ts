@@ -16,6 +16,7 @@ export const roomSchema=z.object({
 export type RoomProp={
     id:number,
     slug:string,
-    createAt:Date
+    createAt:Date,
+    adminId:number
     
 }

@@ -4,7 +4,7 @@ function Animationbox() {
      <div className="relative w-full aspect-square max-w-xl mx-auto">
       <div className="absolute inset-0 bg-linear-to-br from-blue-50 to-purple-50 rounded-3xl transform rotate-3 animate-float"></div>
 
-      <div className="relative bg-white rounded-3xl shadow-2xl p-8 border-2 border-gray-200 animate-float-delayed">
+      <div className="relative bg-linear-to-r from-[#465362] via-[#62240C] to-[#62240C] rounded-3xl shadow-2xl p-8 border-2 border-gray-200 animate-float-delayed">
         <svg viewBox="0 0 400 400" className="w-full h-full">
           <rect
             x="50"

@@ -29,7 +29,7 @@ export default function AuthButtons({ session }: { session: any }) {
               </button>
             </Link>
 
-            <button onClick={handleLogOut} className="text-gray-600 cursor-pointer hover:text-gray-900 transition-colors">Log Out</button>
+            <button onClick={handleLogOut} className="text-gray-400 cursor-pointer hover:text-gray-200 transition-colors">Log Out</button>
           </div>
         </div>
     );
