@@ -10,7 +10,7 @@ export default function HeadRoom({setShow}:any) {
                 </Link>
                 <div onClick={() => setShow(true)} className="flex justify-center items-center gap-1 bg-blue-700 px-5 py-3 rounded-xl text-white font-semibold cursor-pointer">
                     <Plus />
-                    Create workspace
+                    Create Room
                 </div>
             </div>
         </div>

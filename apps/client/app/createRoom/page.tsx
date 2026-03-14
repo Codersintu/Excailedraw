@@ -26,17 +26,17 @@ export default function CreateRoom() {
   if (!data || data.length === 0) {
     return (
       <>
-        <div className="min-h-screen bg-white flex flex-col relative">
+        <div className="min-h-screen bg-linear-to-r from-[#2D3844] via-[#62240C] to-[#62240C] flex flex-col relative">
           <div className="flex-1 flex justify-center items-center z-0">
             <div className="flex flex-col justify-center items-center gap-10">
               <div className="flex flex-col justify-center items-center gap-7 ">
                 <div className="flex flex-col justify-center items-center gap-3">
-                  <h1 className="text-2xl font-bold text-gray-700">No workspace yet</h1>
-                  <p className="text-xl text-gray-600">You haven't created any workspace yet. Let's change that!</p>
+                  <h1 className="text-2xl font-bold text-gray-300 ">No workspace yet</h1>
+                  <p className="text-xl text-gray-400 text-center">You haven't created any workspace yet. Let's change that!</p>
                 </div>
-                <div className="flex flex-col justify-center items-center">
-                  <p className="text-sm text-gray-600">Don't want to create a workspace just yet? You are welcome to use our free open source</p>
-                  <p className="text-sm text-gray-600">editor over at excalidraw.com in the meantime.</p>
+                <div className="flex flex-col justify-center items-center text-center">
+                  <p className="text-sm text-gray-500">Don't want to create a workspace just yet? You are welcome to use our free open source</p>
+                  <p className="text-sm text-gray-500">editor over at excalidraw.com in the meantime.</p>
                 </div>
 
                 <div onClick={() => setShow(true)} className="flex justify-center items-center gap-3 bg-blue-700 px-20 py-3 rounded-xl text-white font-semibold cursor-pointer">
@@ -46,13 +46,13 @@ export default function CreateRoom() {
 
               </div>
 
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-gray-400 hidden md:flex">
                 --------------------------------------------------------------  Need help?  -----------------------------------------------------------------
               </div>
               <div className="">
                 <div className="flex justify-center items-center gap-2 text-gray-500">
                   <Github className="w-4 h-4" />
-                  <p className="text-xs">Report issue on GitHub</p>
+                  <p className="text-xs text-white">Report issue on GitHub</p>
                 </div>
               </div>
             </div>

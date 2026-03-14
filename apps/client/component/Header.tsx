@@ -5,11 +5,11 @@ import AuthButtons from "./AuthButton";
 async function Header() {
   const session = await getServerSession(authOptions as any);
   return (
-    <header  className="fixed top-4 left-0 right-0 z-50">
-      <nav className="max-w-7xl  bg-white/80 backdrop-blur-md border border-gray-200 mx-auto px-6 py-4 flex items-center justify-between rounded-full bg-linear-to-r from-[#465362] via-[#62240C] to-[#526881]">
+    <header  className="fixed top-4 left-0 right-0 z-50  px-5">
+      <nav className="max-w-5xl  bg-white/80 backdrop-blur-md border border-gray-200 mx-auto px-6 py-4 flex items-center justify-between rounded-full bg-linear-to-r from-[#465362] via-[#62240C] to-[#526881]">
         <div className="flex items-center gap-2">
           <Pencil className="w-10 h-10 text-[#62240C]" strokeWidth={2.5} />
-          <span className="text-3xl font-bold text-[#c5b1a9]">PencilDraw</span>
+          <span className="text-3xl font-bold text-[#c5b1a9] hidden md:flex">PencilDraw</span>
         </div>
         <div className="hidden md:flex items-center gap-8">
           <a href="#features" className="text-gray-400 hover:text-gray-200 transition-colors">

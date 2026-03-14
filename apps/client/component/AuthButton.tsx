@@ -24,7 +24,7 @@ export default function AuthButtons({ session }: { session: any }) {
       <div className="flex gap-6">
         <div className="flex items-center gap-10">
             <Link href="/createRoom">
-              <button className="bg-blue-600 cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105">
+              <button className="bg-blue-600 hidden md:flex cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105">
                 Start Drawing
               </button>
             </Link>

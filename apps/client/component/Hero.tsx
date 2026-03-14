@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation"
 
 function Hero() {
   const routes=useRouter()
+  
   return (
-   <section className="relative w-full min-h-screen overflow-hidden ">
+   <section className="relative w-full min-h-screen overflow-hidden">
     <div className="relative w-full min-h-screen inset-0 bg-linear-to-r from-[#2D3844] via-[#62240C] to-[#62240C]">
     <div className="relative w-full min-h-screen inset-0" style={{
                     backgroundImage: `
@@ -15,7 +16,7 @@ function Hero() {
             linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px)
           `, backgroundSize: "60px 60px",
                 }}>
-    <div className="max-w-6xl mx-auto py-30">
+    <div className="max-w-7xl mx-auto py-30 px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* left side */}
             <div className="space-y-8 animate-fade-in">
@@ -60,7 +61,7 @@ function Hero() {
             </div>
 
             {/* right content */}
-            <div className="">
+            <div className="px-5">
               <Animationbox/>
             </div>
         </div>
